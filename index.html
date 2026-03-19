@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>1,000,000,000,000,000,000,000,000,000,000 Stars</title>
+  <title>Stars</title>
   <style>
     body {
       margin: 0;
-      overflow: hidden;
       background: black;
-    }
-    canvas {
-      display: block;
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
-<canvas id="stars"></canvas>
+
+<canvas id="c"></canvas>
 
 <script>
-const canvas = document.getElementById("stars");
+const canvas = document.getElementById("c");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
@@ -26,38 +23,28 @@ canvas.height = window.innerHeight;
 
 let stars = [];
 
-for (let i = 0; i < 2000; i++) {
+for (let i = 0; i < 1000; i++) {
   stars.push({
     x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    z: Math.random() * canvas.width
+    y: Math.random() * canvas.height
   });
 }
 
-function animate() {
+function draw() {
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "white";
 
-  for (let star of stars) {
-    star.z -= 2;
-    if (star.z <= 0) star.z = canvas.width;
-
-    let k = 128.0 / star.z;
-    let x = star.x * k + canvas.width / 2;
-    let y = star.y * k + canvas.height / 2;
-
-    if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
-      let size = (1 - star.z / canvas.width) * 3;
-      ctx.fillRect(x, y, size, size);
-    }
+  for (let s of stars) {
+    ctx.fillRect(s.x, s.y, 2, 2);
   }
 
-  requestAnimationFrame(animate);
+  requestAnimationFrame(draw);
 }
 
-animate();
+draw();
 </script>
+
 </body>
 </html>
